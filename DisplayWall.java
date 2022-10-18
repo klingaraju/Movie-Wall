@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 
 public class DisplayWall extends MovieData{
 
-
     public static void main (String args[])  {
         boolean checkagain = true;
         String file = args[0];
@@ -21,7 +20,9 @@ public class DisplayWall extends MovieData{
                 checkagain=false;
             }else{
                 MovieData output = new MovieData();
-                output.readFile(file);
+                ActorArrayList mainlist = output.readFile(file);
+                mainlist.sortActorArrayList();
+                mainlist.searchActor(mainlist.getActorArrayList(), actorname);
             }
         }
         System.out.println("Thanks for using the Movie Wall!");

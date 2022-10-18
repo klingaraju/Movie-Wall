@@ -6,15 +6,16 @@ import java.util.ArrayList;
 
 
 
-public class MovieData extends Actor {
+public class MovieData extends ActorArrayList {
+    ActorArrayList mainactorarray = new ActorArrayList();
     ArrayList<Actor> actorList = new ArrayList<>();
 
 //implement sorting method for actorList
 // implement binary search method for actorList
 
-    public void readFile(String filename){
+    public ActorArrayList readFile(String filename){
+        ArrayList<Actor> actorArrayList = new ArrayList<>();
         try {
-            ArrayList<Actor> actorArrayList = new ArrayList<>();
             FileReader csvFile = new FileReader(filename);
             BufferedReader br = new BufferedReader(csvFile);
             String line = br.readLine();
@@ -24,7 +25,7 @@ public class MovieData extends Actor {
             //System.out.println("Hello");
             while (line != null){
                 //System.out.println("Hello Kitty");
-            //for (int i = 0; i < 1 ; i++) {
+                //for (int i = 0; i < 1 ; i++) {
                 line = br.readLine();
                 if(line == null){
                     break;
@@ -32,13 +33,14 @@ public class MovieData extends Actor {
                 String[] fields = line.split("]");
                 String[] movieDetails= fields[0].split("}");
                 for (int j = 0; j < movieDetails.length; j++) {
-                    System.out.println(movieDetails[j]);
+                    //System.out.println(movieDetails[j]);
                     String[] castDetails=movieDetails[j].split(",");
                     if (j==0){
                         actorMovie=castDetails[1];
                         //System.out.println(actorMovie);
                     }
                     for (int k = 1; k < castDetails.length; k++) {
+                        boolean alreadyVisited = false;
                         //System.out.println(castDetails[k]);
                         if(castDetails[k].contains("character")){
                             actorRole=castDetails[k].substring(18, castDetails[k].length()-2);
@@ -46,18 +48,18 @@ public class MovieData extends Actor {
                         } if(castDetails[k].contains("name")){
                             String actorName=castDetails[k].substring(13, castDetails[k].length()-2);
                             for (int l = 0; l < actorArrayList.size(); l++) {
-                                if(actorArrayList.get(i).actorname==actorName){
-                                    actorArrayList.get(i).setMovie(actorMovie);
-                                    actorArrayList.get(i).setRole(actorRole);
+                                if(actorArrayList.get(l).getActor().equals(actorName)){
+                                    actorArrayList.get(l).setMovie(actorMovie);
+                                    actorArrayList.get(l).setRole(actorRole);
+                                    alreadyVisited=true;
                                 }
+                            } if (alreadyVisited==false) {
+                                Actor actor = new Actor();
+                                actor.setActor(actorName);
+                                actor.setMovie(actorMovie);
+                                actor.setRole(actorRole);
+                                actorArrayList.add(actor);
                             }
-                            Actor actor = new Actor();
-
-                            //System.out.println(actorName);
-                            actor.setActor(actorName);
-                            actor.setMovie(actorMovie);
-                            actor.setRole(actorRole);
-                            actorArrayList.add(actor);
                         }
                         //System.out.println(castDetails[k]);
                     }
@@ -66,22 +68,17 @@ public class MovieData extends Actor {
 
                 i++;
             }
-            for (int k = 0; k < actorArrayList.size(); k++) {
-                System.out.println(actorArrayList.get(k).getMovie(0).toString());
-                System.out.println(actorArrayList.get(k).getRole(0).toString());
-                System.out.println(actorArrayList.get(k).getActor());
-                System.out.println(" ");
-
+            for (int j = 0; j < 1; j++) {
+                System.out.println(actorArrayList.get(j).getActor());
+                System.out.println(actorArrayList.get(j).getMovie());
+                System.out.println(actorArrayList.get(j).getRole());
             }
-
-
+            actorList = actorArrayList;
+            mainactorarray.setActorArrayList(actorList);
 
         } catch (IOException f) {
             System.out.println(f);
-
         }
-
+        return mainactorarray;
     }
 }
-
-//

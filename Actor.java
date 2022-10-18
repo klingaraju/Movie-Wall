@@ -9,6 +9,7 @@ public class Actor {
         actorname = actor;
     }
 
+
     public void setMovie(String movie) {
         movieName.add(movie);
     }
@@ -17,14 +18,14 @@ public class Actor {
         roleName.add(role);
     }
 
-    public String getMovie( int index){
-        return movieName.get(index);
+    public String getMovie(){
+        return movieName.toString();
     }
     public String getActor(){
         return actorname;
     }
 
-    public String getRole(int index){
-        return roleName.get(index);
+    public String getRole(){
+        return roleName.toString();
     }
 }
