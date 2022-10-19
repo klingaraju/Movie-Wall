@@ -7,9 +7,6 @@ import java.util.ArrayList;
 
 
 public class MovieData extends Actor {
-//implement sorting method for actorList
-// implement binary search method for actorList
-
     public ArrayList<Actor> readFile(String filename){
         ArrayList<Actor> actorArrayList = new ArrayList<>();
         try {
@@ -24,32 +21,39 @@ public class MovieData extends Actor {
                 if(line == null){
                     break;
                 }
+                //Here, the movie name is obtained getting the first element, which will always be the movie.
+                //The array is then split on ] to remove crew members, and creates fields.
+                //Fields is then split on } to seperate each actor's attributes into an individual array, giving movieDetails.
+                actorMovie = line.split(",")[1];
                 String[] fields = line.split("]");
                 String[] movieDetails= fields[0].split("}");
+                //System.out.println(actorMovie);
                 for (int j = 0; j < movieDetails.length; j++) {
-                    //System.out.println(movieDetails[j]);
+                    //Each movie's actor is split on , to seperate all the different attributes of the actor.
                     String[] castDetails=movieDetails[j].split(",");
-                    if (j==0){
-                        actorMovie=castDetails[1];
-                        //System.out.println(actorMovie);
-                    }
                     for (int k = 1; k < castDetails.length; k++) {
+                        //this boolean is to check if an actor in a movie already has an entry in the arraylist of actors.
                         boolean alreadyVisited = false;
-                        //System.out.println(castDetails[k]);
+                        //here, based on the contents of each attribute, we assign the actor's role and name.
                         if(castDetails[k].contains("character")){
                             actorRole=castDetails[k].substring(18, castDetails[k].length()-2);
-                            //System.out.println(actorRole);
                         } if(castDetails[k].contains("name")){
                             String actorName=castDetails[k].substring(13, castDetails[k].length()-2);
                             if(actorName.contains(" ")){
                                 actorName=actorName.trim();
                             }
+                            if(actorName.contains("\"\"")){
+                                actorName=actorName.trim();
+                            }
+                            //Here, we are checking to see if the actorname already has an entry in the actorarraylist.
+                            // If it does, we just add the movie and role to the actor object's arraylist of movies and roles.
                             for (int l = 0; l < actorArrayList.size(); l++) {
                                 if(actorArrayList.get(l).getActor().equals(actorName)){
                                     actorArrayList.get(l).setMovie(actorMovie);
                                     actorArrayList.get(l).setRole(actorRole);
                                     alreadyVisited=true;
                                 }
+                                // Here, if the actorname isn't in the arraylist of actors, we add them to the list.
                             } if (alreadyVisited==false) {
                                 Actor actor = new Actor();
                                 actor.setActor(actorName);
@@ -58,19 +62,11 @@ public class MovieData extends Actor {
                                 actorArrayList.add(actor);
                             }
                         }
-                        //System.out.println(castDetails[k]);
                     }
 
                 }
-
                 i++;
             }
-//            for (int j = 0; j < actorArrayList.size(); j++) {
-//                System.out.println(actorArrayList.get(j).getActor());
-//                System.out.println(actorArrayList.get(j).getMovie());
-//                System.out.println(actorArrayList.get(j).getRole());
-//            }
-
         } catch (IOException f) {
             System.out.println(f);
         }

@@ -3,6 +3,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Actor implements Comparable<Actor> {
+    //Actor class with variables for name, and arraylists of movies and role the actor has played in/as.
+    // Also contains a actorArrayList variable, so arraylist of actors can be sorted/searched.
+    // Contains getter and setter methods for all variables, as well as a getSize function for arraylist.
+    //Sort uses comparable interface, which allows for use of a comparator and collections.sort.
+    //Search method uses binary search to search through sorted list of actor objects.
     String actorname;
     ArrayList<String> movieName = new ArrayList<>();
     ArrayList<String> roleName = new ArrayList<>();
