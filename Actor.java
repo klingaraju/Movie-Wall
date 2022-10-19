@@ -55,6 +55,7 @@ public class Actor implements Comparable<Actor> {
     }
 
     @Override
+    //compare to function to use in comparator.
     public int compareTo(Actor actor) {
             if (this.actorname.charAt(0) != actor.actorname.charAt(0)) {
                 return Character.compare(this.actorname.charAt(0), actor.actorname.charAt(0));
@@ -74,6 +75,7 @@ public class Actor implements Comparable<Actor> {
     public int getMovieRoleSize(){
         return movieName.size();
     }
+    //comparator to use in sortActorArrayList
     public static Comparator<Actor> ActorNameComparator = new Comparator<Actor>() {
         @Override
         public int compare(Actor a1, Actor a2) {

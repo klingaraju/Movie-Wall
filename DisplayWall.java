@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 
 
 public class DisplayWall extends MovieData {
-
+    //this class is used to display output to the user and take input from the user.
     public static void main(String args[]) {
         boolean checkagain = true;
         String file = args[0];

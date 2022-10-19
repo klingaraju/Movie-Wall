@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 
 public class MovieData extends Actor {
+    //this class is used to parse through the data file and add actor objects to the arraylist of actors.
     public ArrayList<Actor> readFile(String filename){
+        //this is the function that parses through the data file containing all of the actors' info.
         ArrayList<Actor> actorArrayList = new ArrayList<>();
         try {
             FileReader csvFile = new FileReader(filename);
