@@ -20,31 +20,32 @@ public class DisplayWall extends MovieData {
             } else {
                 MovieData output = new MovieData();
                 ArrayList<Actor> driverActorList = output.readFile(file);
-                //here, the parent actor object is created to store an arraylist of actor objects.
-                Actor parent = new Actor();
-                parent.setActorArrayList(driverActorList);
-                parent.sortActorArrayList();
-                Actor displayactor = parent.searchActor(parent.getActorArrayList(), driverActorName);
-                if (driverActorName.compareTo(displayactor.getActor())==0) {
-                    //code to display all movies and roles of actor
-                    System.out.println("Actor: " + displayactor.getActor());
-                    for (int i = 0; i < displayactor.getMovieRoleSize(); i++) {
-                        System.out.println("* Movie: " + displayactor.getIndividualMovie(i)+" as "+ displayactor.getIndividualRole(i));
-                    }
-
-                } else {
-                    System.out.println("No such actor. Did you mean " + displayactor.getActor()+"?");
-                    String yesOrNo = userinput.nextLine();
-                    if (yesOrNo.equals("Y")){
-                        //code to display all movies and roles of actor
-                        System.out.println("Actor: "+ displayactor.getActor());
-                        for (int i = 0; i < displayactor.getMovieRoleSize(); i++) {
-                            System.out.println("* Movie: " + displayactor.getIndividualMovie(i)+" as "+ displayactor.getIndividualRole(i));
-                        }
-                    } else if (yesOrNo.equals("N")){
-                        checkagain=true;
-                    }
-                }
+//                //here, the parent actor object is created to store an arraylist of actor objects.
+//                Actor parent = new Actor();
+//                parent.setActorArrayList(driverActorList);
+//                parent.sortActorArrayList();
+//                int y =0;
+//                Actor displayactor = parent.searchActor(parent.getActorArrayList(), driverActorName);
+//                if (driverActorName.compareTo(displayactor.getActor())==0) {
+//                    //code to display all movies and roles of actor
+//                    System.out.println("Actor: " + displayactor.getActor());
+//                    for (int i = 0; i < displayactor.getMovieRoleSize(); i++) {
+//                        System.out.println("* Movie: " + displayactor.getIndividualMovie(i)+" as "+ displayactor.getIndividualRole(i));
+//                    }
+//
+//                } else {
+//                    System.out.println("No such actor. Did you mean " + displayactor.getActor()+"?");
+//                    String yesOrNo = userinput.nextLine();
+//                    if (yesOrNo.equals("Y")){
+//                        //code to display all movies and roles of actor
+//                        System.out.println("Actor: "+ displayactor.getActor());
+//                        for (int i = 0; i < displayactor.getMovieRoleSize(); i++) {
+//                            System.out.println("* Movie: " + displayactor.getIndividualMovie(i)+" as "+ displayactor.getIndividualRole(i));
+//                        }
+//                    } else if (yesOrNo.equals("N")){
+//                        checkagain=true;
+//                    }
+//                }
             }
             }
             System.out.println("Thanks for using the Movie Wall!");
