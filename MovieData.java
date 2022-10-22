@@ -2,22 +2,24 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MovieData extends Actor {
     public MovieData() {
     }
 
-    public ArrayList<Actor> readFile(String filename) {
-        ArrayList<Actor> actorArrayList = new ArrayList();
-
-        try {
+    public HashMap readFile(String filename) {
+        ArrayList<String> keyList = new ArrayList();
+        HashMap<String, Actor> actorHashMap= new HashMap<String, Actor>();
+;        try {
             FileReader csvFile = new FileReader(filename);
             BufferedReader br = new BufferedReader(csvFile);
             String line = br.readLine();
             String actorMovie = "";
             String workingActorRole = "";
             String workingActorName = "";
-            Actor newActor = new Actor();
+
 
             while(line != null) {
                 line = br.readLine();
@@ -40,42 +42,33 @@ public class MovieData extends Actor {
                     actorMovie = actorMovie.substring(1, actorMovie.length() - 1);
                 }
 
-                for(int i = 1; i < parseNames.length && i < parseRoles.length; ++i) {
+                for(int i = 1; i < parseNames.length && i < parseRoles.length; i++) {
                     if (parseNames[i].contains("\"")) {
                         workingActorName = parseNames[i].substring(0, parseNames[i].indexOf("\"\""));
                         workingActorRole = parseRoles[i].substring(0, parseRoles[i].indexOf("\""));
+                        if(workingActorName.contains(" ")){
+                            workingActorName=workingActorName.trim();
+                        }
                     }
 
-                    if (actorArrayList.size() == 0) {
+
+                    if(actorHashMap.containsKey(workingActorName)){
+                        actorHashMap.get(workingActorName).setMovie(actorMovie);
+                        actorHashMap.get(workingActorName).setRole(workingActorRole);
+                    } else {
+                        Actor newActor = new Actor();
                         newActor.setActor(workingActorName);
                         newActor.setMovie(actorMovie);
                         newActor.setRole(workingActorRole);
-                        actorArrayList.add(newActor);
-                    }
-
-                    boolean actorInList = false;
-
-                    for(int j = 0; j < actorArrayList.size(); j++) {
-                        if (((Actor)actorArrayList.get(j)).getActor().equals(workingActorName)) {
-                            ((Actor)actorArrayList.get(j)).setRole(workingActorRole);
-                            ((Actor)actorArrayList.get(j)).setMovie(actorMovie);
-                            actorInList = true;
-                        } else if (!actorInList) {
-                            newActor.setActor(workingActorName);
-                            newActor.setMovie(actorMovie);
-                            newActor.setRole(workingActorRole);
-                            actorArrayList.add(newActor);
-                        }
+                        keyList.add(workingActorName);
+                        actorHashMap.put(workingActorName, newActor);
                     }
                 }
-
-                System.out.println(actorArrayList.size());
             }
         } catch (IOException var16) {
             System.out.println(var16);
         }
-
-        return actorArrayList;
+        return actorHashMap;
     }
 }
 
